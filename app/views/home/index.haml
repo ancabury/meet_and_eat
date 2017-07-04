@@ -1,0 +1,6 @@
+- if @current_user.nil?
+  %h1 Please login
+  = link_to "Sign in with Google", '/auth/google_oauth2', id: 'sign_in'
+- else
+  %h1= "Hello, #{@current_user.name}"
+  = link_to 'Sign out', sign_out_path, id: 'sign_out'

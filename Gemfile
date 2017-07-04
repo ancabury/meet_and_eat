@@ -18,6 +18,7 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry', '~> 0.10.4'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 end
@@ -28,5 +29,11 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+gem 'haml-rails', '~> 1.0'
+gem 'haml', '~> 5.0', '>= 5.0.1'
+gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
+
+gem 'omniauth-google-oauth2', '~> 0.5.0'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
