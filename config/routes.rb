@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users, only: [:index, :show]
     resources :requests
+    resources :proposals
   end
 end
