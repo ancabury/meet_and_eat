@@ -48,7 +48,7 @@ class Api::ProposalsController < ApplicationController
   private
 
   def proposal_params
-    params.require(:proposal).permit(:user_id, :request_id)
+    params.require(:proposal).permit(:user_id, :request_id, restaurant_attributes: [:uid, :name, :address, :lat, :long, :provider])
   end
 
   def get_proposal
