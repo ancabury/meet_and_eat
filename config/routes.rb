@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     resources :requests
     resources :proposals
     resources :meal_dates
+    resources :restaurants, only: [:index]
   end
 end

@@ -35,5 +35,6 @@ gem 'haml', '~> 5.0', '>= 5.0.1'
 gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
 
 gem 'omniauth-google-oauth2', '~> 0.5.0'
+gem 'foursquare2', '~> 2.0', '>= 2.0.2'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
