@@ -14,6 +14,7 @@ class Restaurants::FoursquareSearcher
     search[:venues].collect do |venue|
       hash = {}
       options.collect { |o| hash[o] = venue[o] }
+      hash
     end
   end
 

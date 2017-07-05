@@ -45,6 +45,22 @@ class Api::ProposalsController < ApplicationController
     render json: 'Proposal successfully deleted', status: 200
   end
 
+  # GET /api/proposals/:id/accept
+  def accept
+    #check that @current_user == @proposal.request.user
+    @proposal.update_attribute(:accepted, true)
+    @restaurant = Restaurants::RandomSelection.new(@proposal.request).perform
+    if @restaurant
+      MealDate.create(users: [@proposal.request.user, @proposal.user],
+                      restaurant_name: @restaurant[:name],
+                      restaurant_address: @restaurant[:location][:address],
+                      meal_time: DateTime.current.change(hour: MEAL_TIME[@proposal.request.meal_time.to_sym]))
+      render json: 'Proposal accepted', status: 200
+    else
+      render json: 'No restaurants found', status: 500
+    end
+  end
+
   private
 
   def proposal_params
