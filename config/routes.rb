@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show]
     resources :requests
     resources :proposals
+    resources :meal_dates
   end
 end
