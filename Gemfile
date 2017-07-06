@@ -39,6 +39,7 @@ gem 'omniauth-google-oauth2', '~> 0.5.0'
 gem 'foursquare2', '~> 2.0', '>= 2.0.2'
 
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
 gem 'react-rails', '~> 2.2', '>= 2.2.1'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
