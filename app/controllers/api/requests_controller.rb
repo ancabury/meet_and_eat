@@ -3,8 +3,9 @@ class Api::RequestsController < ApplicationController
 
   # GET /api/requests
   def index
-    @requests = Request.all
-    render json: @requests
+    @requests = Request.all.order(:created_at)
+    # render json: @requests
+    render component: 'Requests', props: { requests: @requests }
   end
 
   # GET /api/requests/new
@@ -15,9 +16,9 @@ class Api::RequestsController < ApplicationController
   def create
     @request = Request.new(request_params)
     if @request.save!
-      render json: 'Request was successfully created ', status: 200
+      render json: { msg: 'Request was successfully created ' }, status: 200
     else
-      render json: 'Error when creating request', status: 500
+      render json: { msg: 'Error when creating request' }, status: 500
     end
   end
 
@@ -26,23 +27,19 @@ class Api::RequestsController < ApplicationController
     render json: @request
   end
 
-  # GET /api/requests/:id/edit
-  def edit
-  end
-
   # PUT /api/requests/:id
   def update
     if @request.update_attributes(request_params)
-      render json: 'Request was successfully updated ', status: 200
+      render json: { msg: 'Request was successfully updated ' }, status: 200
     else
-      render json: 'Error when updating request', status: 500
+      render json: { msg: 'Error when updating request' }, status: 500
     end
   end
 
   # DELETE /api/requests/:id
   def destroy
     @request.destroy
-    render json: 'Request was deleted.', status: 200
+    render json: { msg: 'Request was deleted.' }, status: 200
   end
 
   private
