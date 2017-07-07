@@ -28,7 +28,7 @@ var NewRequest = React.createClass({
       data: { request: this.state.request },
       success: (response) => {
         this.props.saveHandler(response.request);
-        this.setState({ request: this.defaultRequest });
+        this.setState({ request: response.request });
         console.log(response.msg)
       },
       error: (response) => {

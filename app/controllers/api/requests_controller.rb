@@ -12,7 +12,7 @@ class Api::RequestsController < ApplicationController
   def create
     @request = Request.new(request_params)
     if @request.save!
-      json_request = @request.to_json(include: [ user: { only: [:name] }])
+      json_request = @request.as_json(include: [ user: { only: [:name] }])
       render json: { msg: 'Request was successfully created ', request: json_request }, status: 200
     else
       render json: { msg: 'Error when creating request' }, status: 500
