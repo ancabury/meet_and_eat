@@ -32,7 +32,7 @@ var Request = React.createClass({
                 meal_time: this.state.request.meal_time
             } },
       success: (request) => {
-        this.props.deleteHandler(id);
+        this.setState({ is_edited: false });
         console.log(request.msg)
       },
       error: (response) => {
@@ -58,6 +58,20 @@ var Request = React.createClass({
     });
   },
 
+  handleCreateProposal: function(id) {
+    $.ajax({
+      url: `/api/proposals`,
+      method: 'POST',
+      data: { proposal: { request_id: id} },
+      success: (request) => {
+        console.log(request.msg)
+      },
+      error: (response) => {
+        console.log(response.responseText);
+      }
+    });
+  },
+
 //  ### HTML ###
   renderInfos: function(){
     return(
@@ -71,6 +85,7 @@ var Request = React.createClass({
           <div className="row">
             <Icon action={ this.handleEdit } iconClass="fa fa-edit" class="col-md-3 col-sm-2 col-xs-1" title="Edit"/>
             <Icon action={ this.handleDelete.bind(this, this.state.request.id) } iconClass="fa fa-trash" class="col-md-3 col-sm-2 col-xs-1" title="Delete"/>
+            <Icon action={ this.handleCreateProposal.bind(this, this.state.request.id) } iconClass="fa fa-cutlery" class="col-md-3 col-sm-2 col-xs-1" title="Create proposal"/>
           </div>
         </div>
       </div>
@@ -90,6 +105,7 @@ var Request = React.createClass({
         <InputWithErrors attrName="meal_time" errors={ this.state.errors } className="col-lg-2">
           <input className="form-control" value={ this.state.request.meal_time } name="meal_time" onChange={ this.handleInputChange }/>
         </InputWithErrors>
+        <div className="col-lg-2"/>
         <div className="col-lg-1 text-left">
           <Icon type="submit" action={ this.handleUpdate.bind(this, this.state.request.id) } iconClass="fa fa-check"/>
         </div>
