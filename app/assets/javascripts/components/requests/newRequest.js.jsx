@@ -1,11 +1,13 @@
 var NewRequest = React.createClass({
-  defaultRequest: { location: '', meal_time: '', meal_type: '' },
+  defaultRequest: function(){
+    return { location: '', meal_time: '', meal_type: '' }
+  },
 
   propTypes: {
     saveHandler: React.PropTypes.func
   },
 
-  getInitialState() { return { request: this.defaultRequest, errors: {} } },
+  getInitialState() { return { request: this.defaultRequest(), errors: {} } },
 
 //  ### Actions ###
   handleInputChange: function(event) {
@@ -28,7 +30,7 @@ var NewRequest = React.createClass({
       data: { request: this.state.request },
       success: (response) => {
         this.props.saveHandler(response.request);
-        this.setState({ request: response.request });
+        this.setState({ request: this.defaultRequest() });
         console.log(response.msg)
       },
       error: (response) => {
