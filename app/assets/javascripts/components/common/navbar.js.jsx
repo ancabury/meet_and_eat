@@ -17,9 +17,16 @@ var Navbar = React.createClass({
     }
 
     return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-default navbar-toggleable-sm">
         <div className="container-fluid">
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="navbar-header">
+            <button className="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+              <Icon iconClass="fa fa-bars" class="navbar-toggler-icon"/>
+            </button>
+            <a className="navbar-brand" href="#">MeetNeat</a>
+          </div>
+
+          <div className="collapse navbar-collapse" id="menu">
             <ul className="nav navbar-nav">
               { links }
             </ul>
