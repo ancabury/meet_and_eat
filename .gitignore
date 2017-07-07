@@ -28,3 +28,4 @@ config/initializers/secret_token.rb
 .byebug_history
 
 config/database.yml
+.ruby-gemset
