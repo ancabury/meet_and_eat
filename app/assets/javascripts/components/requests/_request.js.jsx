@@ -68,8 +68,10 @@ var Request = React.createClass({
         <div className="col-lg-2"> { this.state.request.meal_time } </div>
         <div className="col-lg-2"> { this.state.request.user.name } </div>
         <div className="col-lg-1 text-left">
-          <Icon action={ this.handleEdit } iconClass="fa fa-edit" class="pull-left"/>
-          <Icon action={ this.handleDelete.bind(this, this.state.request.id) } iconClass="fa fa-trash" class="pull-right"/>
+          <div className="row">
+            <Icon action={ this.handleEdit } iconClass="fa fa-edit" class="col-md-3 col-sm-2 col-xs-1" title="Edit"/>
+            <Icon action={ this.handleDelete.bind(this, this.state.request.id) } iconClass="fa fa-trash" class="col-md-3 col-sm-2 col-xs-1" title="Delete"/>
+          </div>
         </div>
       </div>
       )
