@@ -7,7 +7,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = react_component('Navbar', { links: @links }, { prerender: false })
+    = react_component('Navbar', { links: @links, controlArea: control_area }, { prerender: false })
 
     .container
       = yield

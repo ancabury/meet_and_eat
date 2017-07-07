@@ -13,5 +13,9 @@ class ApplicationController < ActionController::Base
       { name: 'Proposals', path: api_proposals_path },
       { name: 'Meal dates', path: api_meal_dates_path }
     ]
+    @right_links = {
+      login: { name: 'Log in with Google', path: '/auth/google_oauth2' },
+      logout: { name: 'Log out', path: sign_out_path}
+    }
   end
 end

@@ -1,9 +1,8 @@
 var Navbar = React.createClass({
   propTypes: {
-    links: React.PropTypes.array
+    links: React.PropTypes.array,
+    controlArea: React.PropTypes.object
   },
-
-  getInitialState() { return { links: [] } },
 
   render: function() {
     var links = this.props.links.map((l) => {
@@ -11,6 +10,11 @@ var Navbar = React.createClass({
         <NavbarLink link={ l } key={ l.path }/>
       )
     });
+
+    var user_details;
+    if(this.props.controlArea.user != undefined ){
+      user_details = <li> <a href='#'> Welcome, { this.props.controlArea.user } </a></li>
+    }
 
     return (
       <nav className="navbar navbar-default">
@@ -21,8 +25,8 @@ var Navbar = React.createClass({
             </ul>
 
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">Log in</a></li>
-              <li><a href="#">Log out</a></li>
+              { user_details }
+              <li><a href={ this.props.controlArea.controlLink.path }>{ this.props.controlArea.controlLink.name }</a></li>
             </ul>
           </div>
         </div>
