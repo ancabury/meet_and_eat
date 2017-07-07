@@ -45,18 +45,18 @@ var NewRequest = React.createClass({
   render: function() {
     return (
       <form className="newRequestForm" onSubmit={ this.saveRequest }>
-        <div className="col-lg-1 text-right"> { this.state.request.id } </div>
-        <InputWithErrors attrName="location" errors={ this.state.errors } className="col-lg-3 text-center">
+        <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 hidden-xs hidden-sm text-right"/>
+        <InputWithErrors attrName="location" errors={ this.state.errors } className="col-lg-3 col-md-2 col-sm-2 col-xs-2 text-center">
           <input className="form-control" value={ this.state.request.location } name="location" onChange={ this.handleInputChange }/>
         </InputWithErrors>
-        <InputWithErrors attrName="meal_type" errors={ this.state.errors } className="col-lg-3 text-center">
+        <InputWithErrors attrName="meal_type" errors={ this.state.errors } className="col-lg-3 col-md-2 col-sm-2 col-xs-2 text-center">
           <input className="form-control" value={ this.state.request.meal_type } name="meal_type" onChange={ this.handleInputChange }/>
         </InputWithErrors>
-        <InputWithErrors attrName="meal_time" errors={ this.state.errors } className="col-lg-2 text-center">
+        <InputWithErrors attrName="meal_time" errors={ this.state.errors } className="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
           <input className="form-control" value={ this.state.request.meal_time } name="meal_time" onChange={ this.handleInputChange }/>
         </InputWithErrors>
-        <div className="col-lg-2"></div>
-        <div className="col-lg-1 text-left">
+        <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"/>
+        <div className="col-lg-1 col-md-2 col-sm-2 col-xs-1 text-left">
           <button type="submit" className="btn btn-primary">Save</button>
         </div>
       </form>

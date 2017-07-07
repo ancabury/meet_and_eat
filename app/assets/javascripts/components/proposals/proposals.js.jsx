@@ -26,12 +26,12 @@ var Proposals = React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="col-lg-1 text-right"><strong>#</strong></div>
-          <div className="col-lg-2"><strong>From</strong></div>
-          <div className="col-lg-3"><strong>Location</strong></div>
-          <div className="col-lg-3"><strong>Meal type</strong></div>
-          <div className="col-lg-2"><strong>Meal time</strong></div>
-          <div className="col-lg-1"/>
+          <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 hidden-xs hidden-sm text-right"><strong>#</strong></div>
+          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"><strong>From</strong></div>
+          <div className="col-lg-3 col-md-2 col-sm-2 col-xs-2"><strong>Location</strong></div>
+          <div className="col-lg-3 col-md-2 col-sm-2 col-xs-2"><strong>Meal type</strong></div>
+          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"><strong>Meal time</strong></div>
+          <div className="col-lg-1 col-md-2 col-sm-2 col-xs-2"/>
         </div>
         { proposals }
       </div>

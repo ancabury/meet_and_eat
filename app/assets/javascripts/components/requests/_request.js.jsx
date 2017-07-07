@@ -76,16 +76,16 @@ var Request = React.createClass({
   renderInfos: function(){
     return(
       <div className="row">
-        <div className="col-lg-1 text-right"> { this.state.request.id } </div>
-        <div className="col-lg-3"> { this.state.request.location } </div>
-        <div className="col-lg-3"> { this.state.request.meal_type } </div>
-        <div className="col-lg-2"> { this.state.request.meal_time } </div>
-        <div className="col-lg-2"> { this.state.request.user.name } </div>
-        <div className="col-lg-1 text-left">
+        <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 hidden-xs hidden-sm text-right"> { this.state.request.id } </div>
+        <div className="col-lg-3 col-md-2 col-sm-2 col-xs-2"> { this.state.request.location } </div>
+        <div className="col-lg-3 col-md-2 col-sm-2 col-xs-2"> { this.state.request.meal_type } </div>
+        <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"> { this.state.request.meal_time } </div>
+        <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"> { this.state.request.user.name } </div>
+        <div className="col-lg-1 col-md-2 col-sm-1 col-xs-1 text-left">
           <div className="row">
-            <Icon action={ this.handleEdit } iconClass="fa fa-edit" class="col-md-3 col-sm-2 col-xs-1" title="Edit"/>
-            <Icon action={ this.handleDelete.bind(this, this.state.request.id) } iconClass="fa fa-trash" class="col-md-3 col-sm-2 col-xs-1" title="Delete"/>
-            <Icon action={ this.handleCreateProposal.bind(this, this.state.request.id) } iconClass="fa fa-cutlery" class="col-md-3 col-sm-2 col-xs-1" title="Create proposal"/>
+            <Icon action={ this.handleEdit } iconClass="fa fa-edit" class="col-md-1 col-sm-1 col-xs-1" title="Edit"/>
+            <Icon action={ this.handleDelete.bind(this, this.state.request.id) } iconClass="fa fa-trash" class="col-md-1 col-sm-1 col-xs-1" title="Delete"/>
+            <Icon action={ this.handleCreateProposal.bind(this, this.state.request.id) } iconClass="fa fa-cutlery" class="col-md-1 col-sm-1 col-xs-1" title="Create proposal"/>
           </div>
         </div>
       </div>
@@ -95,18 +95,18 @@ var Request = React.createClass({
   editInputs: function() {
     return(
       <div className="row">
-        <div className="col-lg-1 text-right"> { this.state.request.id } </div>
-        <InputWithErrors attrName="location" errors={ this.state.errors } className="col-lg-3">
+        <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 hidden-xs hidden-sm text-right"> { this.state.request.id } </div>
+        <InputWithErrors attrName="location" errors={ this.state.errors } className="col-lg-3 col-md-2 col-sm-2 col-xs-2">
           <input className="form-control" value={ this.state.request.location } name="location" onChange={ this.handleInputChange }/>
         </InputWithErrors>
-        <InputWithErrors attrName="meal_type" errors={ this.state.errors } className="col-lg-3">
+        <InputWithErrors attrName="meal_type" errors={ this.state.errors } className="col-lg-3 col-md-2 col-sm-3 col-xs-3">
           <input className="form-control" value={ this.state.request.meal_type } name="meal_type" onChange={ this.handleInputChange }/>
         </InputWithErrors>
-        <InputWithErrors attrName="meal_time" errors={ this.state.errors } className="col-lg-2">
+        <InputWithErrors attrName="meal_time" errors={ this.state.errors } className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <input className="form-control" value={ this.state.request.meal_time } name="meal_time" onChange={ this.handleInputChange }/>
         </InputWithErrors>
-        <div className="col-lg-2"/>
-        <div className="col-lg-1 text-left">
+        <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"/>
+        <div className="col-lg-1 col-md-2 col-sm-1 col-xs-1 text-left">
           <Icon type="submit" action={ this.handleUpdate.bind(this, this.state.request.id) } iconClass="fa fa-check"/>
         </div>
       </div>

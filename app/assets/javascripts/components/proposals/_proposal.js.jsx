@@ -38,14 +38,14 @@ var Proposal = React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="col-lg-1 text-right"> { this.state.proposal.id } </div>
-          <div className="col-lg-2"> { this.state.proposal.user.name } </div>
-          <div className="col-lg-3"> { this.state.proposal.request.location } </div>
-          <div className="col-lg-3"> { this.state.proposal.request.meal_type } </div>
-          <div className="col-lg-2"> { this.state.proposal.request.meal_time } </div>
-          <div className="col-lg-1 text-left">
-            <Icon action={ this.handleDelete.bind(this, this.state.proposal.id) } iconClass="fa fa-trash" class="col-md-6 col-sm-2 col-xs-1" title="Delete"/>
-            <Icon action={ this.handleAccept.bind(this, this.state.proposal.id) } iconClass="fa fa-check-square-o" class="col-md-6 col-sm-2 col-xs-1" title="Accept"/>
+          <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 hidden-xs hidden-sm text-right"> { this.state.proposal.id } </div>
+          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"> { this.state.proposal.user.name } </div>
+          <div className="col-lg-3 col-md-2 col-sm-2 col-xs-2"> { this.state.proposal.request.location } </div>
+          <div className="col-lg-3 col-md-2 col-sm-2 col-xs-2"> { this.state.proposal.request.meal_type } </div>
+          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"> { this.state.proposal.request.meal_time } </div>
+          <div className="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+            <Icon action={ this.handleDelete.bind(this, this.state.proposal.id) } iconClass="fa fa-trash" class="col-md-1 col-sm-1 col-xs-1" title="Delete"/>
+            <Icon action={ this.handleAccept.bind(this, this.state.proposal.id) } iconClass="fa fa-check-square-o" class="col-md-1 col-sm-1 col-xs-1" title="Accept"/>
           </div>
         </div>
       </div>
