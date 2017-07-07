@@ -1,6 +1,7 @@
 var Request = React.createClass({
   propTypes: {
-    request: React.PropTypes.object
+    request: React.PropTypes.object,
+    deleteHandler: React.PropTypes.func
   },
 
   getInitialState() { return { is_edited: false, request: this.props.request, errors: {} } },
@@ -31,7 +32,7 @@ var Request = React.createClass({
                 meal_time: this.state.request.meal_time
             } },
       success: (request) => {
-        this.setState({ is_edited: false });
+        this.props.deleteHandler(id);
         console.log(request.msg)
       },
       error: (response) => {
@@ -43,15 +44,33 @@ var Request = React.createClass({
     });
   },
 
+  handleDelete: function(id) {
+    $.ajax({
+      url: `/api/requests/${id}`,
+      method: 'DELETE',
+      success: (request) => {
+        this.props.deleteHandler(id);
+        console.log(request.msg)
+      },
+      error: (response) => {
+        console.log(response.responseText);
+      }
+    });
+  },
+
 //  ### HTML ###
   renderInfos: function(){
     return(
       <div className="row">
-        <div className="col-lg-1"> { this.state.request.id } </div>
+        <div className="col-lg-1 text-right"> { this.state.request.id } </div>
         <div className="col-lg-3"> { this.state.request.location } </div>
         <div className="col-lg-3"> { this.state.request.meal_type } </div>
-        <div className="col-lg-3"> { this.state.request.meal_time } </div>
-        <div className="col-lg-2"> <Icon action={ this.handleEdit } iconClass="fa fa-edit"/> </div>
+        <div className="col-lg-2"> { this.state.request.meal_time } </div>
+        <div className="col-lg-2"> { this.state.request.user.name } </div>
+        <div className="col-lg-1 text-left">
+          <Icon action={ this.handleEdit } iconClass="fa fa-edit" class="pull-left"/>
+          <Icon action={ this.handleDelete.bind(this, this.state.request.id) } iconClass="fa fa-trash" class="pull-right"/>
+        </div>
       </div>
       )
     },
@@ -59,17 +78,17 @@ var Request = React.createClass({
   editInputs: function() {
     return(
       <div className="row">
-        <div className="col-lg-1"> { this.state.request.id } </div>
+        <div className="col-lg-1 text-right"> { this.state.request.id } </div>
         <InputWithErrors attrName="location" errors={ this.state.errors } className="col-lg-3">
           <input className="form-control" value={ this.state.request.location } name="location" onChange={ this.handleInputChange }/>
         </InputWithErrors>
         <InputWithErrors attrName="meal_type" errors={ this.state.errors } className="col-lg-3">
           <input className="form-control" value={ this.state.request.meal_type } name="meal_type" onChange={ this.handleInputChange }/>
         </InputWithErrors>
-        <InputWithErrors attrName="meal_time" errors={ this.state.errors } className="col-lg-3">
+        <InputWithErrors attrName="meal_time" errors={ this.state.errors } className="col-lg-2">
           <input className="form-control" value={ this.state.request.meal_time } name="meal_time" onChange={ this.handleInputChange }/>
         </InputWithErrors>
-        <div className="col-lg-2">
+        <div className="col-lg-1 text-left">
           <Icon type="submit" action={ this.handleUpdate.bind(this, this.state.request.id) } iconClass="fa fa-check"/>
         </div>
       </div>

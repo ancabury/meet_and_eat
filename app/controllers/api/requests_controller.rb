@@ -5,26 +5,18 @@ class Api::RequestsController < ApplicationController
   def index
     @requests = Request.all.order(:created_at)
     # render json: @requests
-    render component: 'Requests', props: { requests: @requests }
-  end
-
-  # GET /api/requests/new
-  def new
+    render component: 'Requests', props: { requests: @requests.as_json(include: [ user: { only: [:name] }]) }
   end
 
   # POST /api/requests
   def create
     @request = Request.new(request_params)
     if @request.save!
-      render json: { msg: 'Request was successfully created ' }, status: 200
+      json_request = @request.to_json(include: [ user: { only: [:name] }])
+      render json: { msg: 'Request was successfully created ', request: json_request }, status: 200
     else
       render json: { msg: 'Error when creating request' }, status: 500
     end
-  end
-
-  # GET /api/requests/:id
-  def show
-    render json: @request
   end
 
   # PUT /api/requests/:id
@@ -49,6 +41,6 @@ class Api::RequestsController < ApplicationController
   end
 
   def request_params
-    params.require(:request).permit(:user_id, :meal_type, :location, :meal_time)
+    params.require(:request).permit(:meal_type, :location, :meal_time).merge({ user_id: current_user.id })
   end
 end
