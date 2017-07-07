@@ -3,8 +3,10 @@ class Api::MealDatesController < ApplicationController
 
   # GET /api/meal_dates
   def index
-    @meal_dates = current_user.meal_dates
-    render json: @meal_dates, include: { users: { only: [ :id, :name] } }
+    @meal_dates = current_user.meal_dates.in_the_future
+    render component: 'MealDates', props: { meal_dates: @meal_dates.as_json(
+      only: [:id, :restaurant_name, :restaurant_address, :meal_time],
+      methods: :participants) }
   end
 
   # POST /api/meal_dates
