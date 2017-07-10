@@ -1,4 +1,10 @@
 class SessionsController < ApplicationController
+  before_action :authenticate_user, only: :destroy
+
+  def new
+
+  end
+
   def create
     user = User.from_omniauth(request.env['omniauth.auth'])
     session[:user_id] = user.id

@@ -1,0 +1,6 @@
+.card-container.login-form
+  %img.no-user-photo{src: asset_path('no_photo.png')}
+
+  %form.login-form{action: '/auth/google_oauth2'}
+    %button.login.google{type: 'submit'}
+      Login with Google

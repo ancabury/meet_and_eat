@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'sign_out', to: 'sessions#destroy', as: 'sign_out'
 
-  resources :sessions, only: [:create, :destroy]
+  resources :sessions, only: [:new, :create, :destroy]
 
   namespace :api do
     resources :users, only: [:index, :show]
