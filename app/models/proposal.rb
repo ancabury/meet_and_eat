@@ -4,6 +4,8 @@ class Proposal < ApplicationRecord
 
   scope :not_accepted, -> { where(accepted: false) }
 
+  validates :user_id, uniqueness: { scope: :request_id }
+
   def as_json(options={})
     super(only: [:id],
           include: { user: { only: [:name] },

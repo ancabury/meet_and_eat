@@ -11,10 +11,10 @@ class Api::ProposalsController < ApplicationController
   # POST /api/proposals
   def create
     @proposal = Proposal.new(proposal_params)
-    if @proposal.save!
+    if @proposal.save
       render json: { msg: 'Proposal successfully created' }, status: 200
     else
-      render json: { msg: 'Error when creating proposal' }, status: 500
+      render json: { msg: 'Error when creating proposal', errors: @proposal.errors.messages }, status: 500
     end
   end
 

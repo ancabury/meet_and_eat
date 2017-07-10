@@ -64,7 +64,7 @@ var Request = React.createClass({
         console.log(request.msg)
       },
       error: (response) => {
-        this.handleErrors(response.responseJSON, response.status, undefined);
+        console.log(response.responseJSON.errors.user_id);
       }
     });
   },
