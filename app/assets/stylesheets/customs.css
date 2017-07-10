@@ -90,3 +90,10 @@
 .login.google:focus {
   box-shadow: 0 0 3px 3px rgba(66,133,244,.3)
 }
+
+
+.user-profile-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}

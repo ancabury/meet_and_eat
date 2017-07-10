@@ -13,7 +13,8 @@ var Navbar = React.createClass({
 
     var user_details;
     if(this.props.controlArea.user != undefined ){
-      user_details = <li> <a href='#'> Welcome, { this.props.controlArea.user } </a></li>
+      user_details = <UserDetails user_name={ this.props.controlArea.user.name }
+                                  user_image_link={ this.props.controlArea.user.image_link }/>
     }
 
     return (
