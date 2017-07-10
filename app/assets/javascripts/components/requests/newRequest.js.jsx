@@ -34,10 +34,7 @@ var NewRequest = React.createClass({
         console.log(response.msg)
       },
       error: (response) => {
-        if (!response.responseJSON)
-          this.setState({ errors: { name: response.responseText } });
-        else
-          this.setState({ errors: { name: response.responseJSON.errors.name } });
+        this.setState({ errors: response.responseJSON.errors });
       }
     });
   },

@@ -75,7 +75,7 @@ var Request = React.createClass({
       if(object != undefined) this.setState({ is_edited: false, request: object })
     }
     else {
-      this.setState({ errors: response.responseJSON.errors });
+      this.setState({ errors: errors.errors });
     }
   },
 
