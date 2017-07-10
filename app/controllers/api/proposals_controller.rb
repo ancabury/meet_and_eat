@@ -1,5 +1,6 @@
 class Api::ProposalsController < ApplicationController
   before_action :get_proposal, except: [:index, :new, :create]
+  load_and_authorize_resource
 
   # GET /api/proposals
   def index
@@ -10,10 +11,6 @@ class Api::ProposalsController < ApplicationController
   # POST /api/proposals
   def create
     @proposal = Proposal.new(proposal_params)
-    if @proposal.request.user == current_user
-      render json: { unauthorized: 'You are not allowed to perform this action' }, status: 403 and return
-    end
-
     if @proposal.save!
       render json: { msg: 'Proposal successfully created' }, status: 200
     else
@@ -23,20 +20,12 @@ class Api::ProposalsController < ApplicationController
 
   # DELETE /api/proposals/:id
   def destroy
-    if @proposal.user != current_user
-      render json: { unauthorized: 'You are not allowed to perform this action' }, status: 403 and return
-    end
-
     @proposal.destroy
     render json: { msg: 'Proposal successfully deleted' }, status: 200
   end
 
   # GET /api/proposals/:id/accept
   def accept
-    unless @proposal.user != current_user && @proposal.request.user == current_user
-      render json: { unauthorized: 'You are not allowed to perform this action' }, status: 403 and return
-    end
-
     @proposal.update_attribute(:accepted, true)
     @restaurant = Restaurants::RandomSelection.new(@proposal.request).perform
     if @restaurant
@@ -48,6 +37,12 @@ class Api::ProposalsController < ApplicationController
     else
       render json: { msg: 'No restaurants found' }, status: 500
     end
+  end
+
+  def handle_unauthorized_access
+    render json: {
+      unauthorized: 'You are not allowed to perform this action'
+    }, status: 403
   end
 
   private
