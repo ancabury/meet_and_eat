@@ -8,7 +8,12 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = react_component('Navbar', { links: @links, controlArea: control_area }, { prerender: false })
+    - if user_signed_in?
+      = react_component 'Navbar', { links: @links, controlArea: control_area }, { prerender: false }
+    - else
+      = react_component 'Navbar', { links: [], controlArea: { controlLink: { name: '', path: '#' } } }, { prerender: false }
 
     .container
+      = render partial: 'layouts/messages'
+
       = yield
