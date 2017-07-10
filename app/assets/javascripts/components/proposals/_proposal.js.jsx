@@ -15,7 +15,7 @@ var Proposal = React.createClass({
         console.log(request.msg)
       },
       error: (response) => {
-        console.log(response.responseText);
+        this.handleErrors(response.responseJSON, response.status, undefined);
       }
     });
   },
@@ -29,9 +29,19 @@ var Proposal = React.createClass({
         console.log(request.msg)
       },
       error: (response) => {
-        console.log(response.responseText);
+        this.handleErrors(response.responseJSON, response.status, undefined);
       }
     });
+  },
+
+  handleErrors: function(errors, status, object) {
+    if (status == 403){ // user has no permission
+      console.log(errors.unauthorized);
+      if(object != undefined) this.setState({ is_edited: false, request: object })
+    }
+    else {
+      this.setState({ errors: response.responseJSON.errors });
+    }
   },
 
   render() {

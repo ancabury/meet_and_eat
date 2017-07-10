@@ -10,6 +10,10 @@ class Api::ProposalsController < ApplicationController
   # POST /api/proposals
   def create
     @proposal = Proposal.new(proposal_params)
+    if @proposal.request.user == current_user
+      render json: { unauthorized: 'You are not allowed to perform this action' }, status: 403 and return
+    end
+
     if @proposal.save!
       render json: { msg: 'Proposal successfully created' }, status: 200
     else
@@ -19,13 +23,20 @@ class Api::ProposalsController < ApplicationController
 
   # DELETE /api/proposals/:id
   def destroy
+    if @proposal.user != current_user
+      render json: { unauthorized: 'You are not allowed to perform this action' }, status: 403 and return
+    end
+
     @proposal.destroy
     render json: { msg: 'Proposal successfully deleted' }, status: 200
   end
 
   # GET /api/proposals/:id/accept
   def accept
-    #check that @current_user == @proposal.request.user
+    unless @proposal.user != current_user && @proposal.request.user == current_user
+      render json: { unauthorized: 'You are not allowed to perform this action' }, status: 403 and return
+    end
+
     @proposal.update_attribute(:accepted, true)
     @restaurant = Restaurants::RandomSelection.new(@proposal.request).perform
     if @restaurant

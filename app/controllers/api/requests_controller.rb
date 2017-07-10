@@ -21,6 +21,11 @@ class Api::RequestsController < ApplicationController
 
   # PUT /api/requests/:id
   def update
+    if @request.user != current_user
+      render json: { unauthorized: 'You are not allowed to perform this action',
+        request: @request.as_json(include: [ user: { only: [:name] }]) }, status: 403 and return
+    end
+
     if @request.update_attributes(request_params)
       render json: { msg: 'Request was successfully updated ' }, status: 200
     else
@@ -30,6 +35,10 @@ class Api::RequestsController < ApplicationController
 
   # DELETE /api/requests/:id
   def destroy
+    if @request.user != current_user
+      render json: { unauthorized: 'You are not allowed to perform this action' }, status: 403 and return
+    end
+
     @request.destroy
     render json: { msg: 'Request was deleted.' }, status: 200
   end

@@ -36,10 +36,7 @@ var Request = React.createClass({
         console.log(request.msg)
       },
       error: (response) => {
-        if (!response.responseJSON)
-          this.setState({ errors: { name: response.responseText } });
-        else
-          this.setState({ errors: { name: response.responseJSON.errors.name } });
+        this.handleErrors(response.responseJSON, response.status, response.responseJSON.request);
       }
     });
   },
@@ -53,7 +50,7 @@ var Request = React.createClass({
         console.log(request.msg)
       },
       error: (response) => {
-        console.log(response.responseText);
+        this.handleErrors(response.responseJSON, response.status, response.responseJSON.request);
       }
     });
   },
@@ -67,9 +64,19 @@ var Request = React.createClass({
         console.log(request.msg)
       },
       error: (response) => {
-        console.log(response.responseText);
+        this.handleErrors(response.responseJSON, response.status, undefined);
       }
     });
+  },
+
+  handleErrors: function(errors, status, object) {
+    if (status == 403){ // user has no permission
+      console.log(errors.unauthorized);
+      if(object != undefined) this.setState({ is_edited: false, request: object })
+    }
+    else {
+      this.setState({ errors: response.responseJSON.errors });
+    }
   },
 
 //  ### HTML ###
