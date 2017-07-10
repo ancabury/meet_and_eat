@@ -19,7 +19,7 @@ var Navbar = React.createClass({
     return (
       <nav className="navbar navbar-default navbar-toggleable-sm">
         <div className="container-fluid">
-          <div class="navbar-header">
+          <div className="navbar-header">
             <button className="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
               <Icon iconClass="fa fa-bars" class="navbar-toggler-icon"/>
             </button>
