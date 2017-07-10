@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user # The helper method tells rails we wish to use this in our helpers and views as well.
   before_action :menu_links
+  before_action :authenticate_user
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
@@ -17,5 +18,12 @@ class ApplicationController < ActionController::Base
       login: { name: 'Log in with Google', path: '/auth/google_oauth2' },
       logout: { name: 'Log out', path: sign_out_path}
     }
+  end
+
+  def authenticate_user
+    if current_user.nil?
+      # the user has to log in
+      redirect_to new_session_path, flash: { error: 'You must sign in.' }
+    end
   end
 end
