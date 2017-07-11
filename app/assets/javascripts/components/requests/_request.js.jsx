@@ -59,9 +59,7 @@ var Request = React.createClass({
       success: (request) => {
         console.log(request.msg)
       },
-      error: (response) => {
-        console.log(response.responseJSON.errors.user_id);
-      }
+      error: this.handleErrors
     });
   },
 
