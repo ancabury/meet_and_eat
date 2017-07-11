@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user # The helper method tells rails we wish to use this in our helpers and views as well.
   before_action :menu_links
   before_action :authenticate_user
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied do |_exception|
     handle_unauthorized_access
   end
 
@@ -32,7 +32,9 @@ class ApplicationController < ActionController::Base
 
   def handle_unauthorized_access
     respond_to do |format|
-      format.json { head :forbidden, content_type: 'text/html' }
+      format.json { render json: { unauthorized: I18n.t('flash.messages.unauthorized') },
+                    status: 403 }
+      format.html { redirect_to root_path, flash: { error: I18n.t('flash.messages.unauthorized') } }
     end
   end
 end

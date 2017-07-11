@@ -35,9 +35,7 @@ var Request = React.createClass({
         this.setState({ is_edited: false });
         console.log(request.msg)
       },
-      error: (response) => {
-        this.handleErrors(response.responseJSON, response.status, response.responseJSON.request);
-      }
+      error: this.handleErrors
     });
   },
 
@@ -49,9 +47,7 @@ var Request = React.createClass({
         this.props.deleteHandler(id);
         console.log(request.msg)
       },
-      error: (response) => {
-        this.handleErrors(response.responseJSON, response.status, response.responseJSON.request);
-      }
+      error: this.handleErrors
     });
   },
 
@@ -69,13 +65,14 @@ var Request = React.createClass({
     });
   },
 
-  handleErrors: function(errors, status, object) {
-    if (status == 403){ // user has no permission
-      console.log(errors.unauthorized);
-      if(object != undefined) this.setState({ is_edited: false, request: object })
+  handleErrors: function(response) {
+    if (response.status == 403){ // user has no permission
+      console.log(response.responseJSON.unauthorized);
+      if(response.responseJSON.request)
+        this.setState({ is_edited: false, request: response.responseJSON.request })
     }
     else {
-      this.setState({ errors: errors.errors });
+      this.setState({ errors: response.responseJSON.errors });
     }
   },
 

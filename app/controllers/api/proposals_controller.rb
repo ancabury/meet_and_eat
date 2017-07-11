@@ -41,7 +41,7 @@ class Api::ProposalsController < ApplicationController
 
   def handle_unauthorized_access
     render json: {
-      unauthorized: 'You are not allowed to perform this action'
+      unauthorized: I18n.t('flash.messages.unauthorized')
     }, status: 403
   end
 

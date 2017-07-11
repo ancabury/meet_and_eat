@@ -1,8 +1,4 @@
 en:
-  activerecord:
-    errors:
-      models:
-        proposal:
-          attributes:
-            user_id:
-              uniq: 'Proposal was already created.'
+  flash:
+    messages:
+      unauthorized: 'You are not allowed to perform this action'
