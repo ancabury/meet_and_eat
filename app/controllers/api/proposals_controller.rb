@@ -1,5 +1,6 @@
 class Api::ProposalsController < ApplicationController
   before_action :get_proposal, except: [:index, :new, :create]
+  load_and_authorize_resource
 
   # GET /api/proposals
   def index
@@ -10,10 +11,10 @@ class Api::ProposalsController < ApplicationController
   # POST /api/proposals
   def create
     @proposal = Proposal.new(proposal_params)
-    if @proposal.save!
+    if @proposal.save
       render json: { msg: 'Proposal successfully created' }, status: 200
     else
-      render json: { msg: 'Error when creating proposal' }, status: 500
+      render json: { msg: 'Error when creating proposal', errors: @proposal.errors.messages }, status: 500
     end
   end
 
@@ -25,7 +26,6 @@ class Api::ProposalsController < ApplicationController
 
   # GET /api/proposals/:id/accept
   def accept
-    #check that @current_user == @proposal.request.user
     @proposal.update_attribute(:accepted, true)
     @restaurant = Restaurants::RandomSelection.new(@proposal.request).perform
     if @restaurant
@@ -37,6 +37,12 @@ class Api::ProposalsController < ApplicationController
     else
       render json: { msg: 'No restaurants found' }, status: 500
     end
+  end
+
+  def handle_unauthorized_access
+    render json: {
+      unauthorized: I18n.t('flash.messages.unauthorized')
+    }, status: 403
   end
 
   private

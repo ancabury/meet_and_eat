@@ -5,12 +5,6 @@ var Proposals = React.createClass({
 
   getInitialState() { return { proposals: this.props.proposals } },
 
-  handleSave: function(proposal) {
-    var newProposals = this.state.proposals;
-    newProposals.push(proposal);
-    this.setState({ proposals: newProposals });
-  },
-
   updateCollection: function(id) {
     var newProposal = this.state.proposals.filter((i) => { return i.id != id });
     this.setState({ proposals: newProposal });

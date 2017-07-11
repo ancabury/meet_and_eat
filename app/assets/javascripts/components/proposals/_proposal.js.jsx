@@ -14,9 +14,7 @@ var Proposal = React.createClass({
         this.props.updateCollection(id);
         console.log(request.msg)
       },
-      error: (response) => {
-        console.log(response.responseText);
-      }
+      error: this.handleErrors
     });
   },
 
@@ -28,10 +26,17 @@ var Proposal = React.createClass({
         this.props.updateCollection(id);
         console.log(request.msg)
       },
-      error: (response) => {
-        console.log(response.responseText);
-      }
+      error: this.handleErrors
     });
+  },
+
+  handleErrors: function(response) {
+    if (response.status == 403){ // user has no permission
+      console.log(response.responseJSON.unauthorized);
+    }
+    else {
+      this.setState({ errors: response.responseJSON.errors });
+    }
   },
 
   render() {
