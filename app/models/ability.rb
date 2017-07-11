@@ -6,14 +6,18 @@ class Ability
 
     # requests permissions
     can :create, Request
-    can [:update, :destroy], Request, user_id: user.id
+    can [:update, :destroy], Request do |request|
+      request.user_id == user.id && !request.proposals.any?
+    end
 
     # proposals permissions
     can :create, Proposal do |proposal|
       proposal.request.user != user
     end
 
-    can :destroy, Proposal, user_id: user
+    can :destroy, Proposal do |proposal|
+      proposal.user_id == user.id && !proposal.accepted
+    end
 
     can :accept, Proposal do |proposal|
       proposal.user != user && proposal.request.user == user

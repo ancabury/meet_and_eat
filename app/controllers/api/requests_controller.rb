@@ -4,7 +4,7 @@ class Api::RequestsController < ApplicationController
 
   # GET /api/requests
   def index
-    @requests = Request.all.order(:created_at)
+    @requests = Request.available.order(:created_at)
     # render json: @requests
     render component: 'Requests', props: { requests: @requests.as_json(include: [ user: { only: [:name] }]) }
   end
