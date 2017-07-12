@@ -30,7 +30,7 @@ var Request = React.createClass({
   },
 
   handleEdit: function() {
-    this.setState({ is_edited: true })
+    this.setState({ is_edited: true, backup_request: jQuery.extend(true, {}, this.state.request) });
   },
 
   handleUpdate: function(id) {
@@ -81,8 +81,7 @@ var Request = React.createClass({
     if (response.status == 403){ // user has no permission
       let flash = JST['templates/alert_error']({msg: response.responseJSON.unauthorized, styles: 'width: inherit;'});
       displayFlash(flash);
-      if(response.responseJSON.request)
-        this.setState({ is_edited: false, request: response.responseJSON.request })
+      this.setState({ is_edited: false, request: this.state.backup_request })
     }
     else {
       Object.keys(response.responseJSON.errors).map(function (key) {
@@ -92,6 +91,10 @@ var Request = React.createClass({
       });
       this.setState({ errors: response.responseJSON.errors });
     }
+  },
+
+  cancelEdit: function() {
+    this.setState({ is_edited: false, request: this.state.backup_request });
   },
 
 //  ### HTML ###
@@ -145,8 +148,12 @@ var Request = React.createClass({
         </InputWithErrors>
         <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"/>
         <div className="col-lg-1 col-md-2 col-sm-1 col-xs-1 text-left">
-          <Icon type="submit" action={ this.handleUpdate.bind(this, this.state.request.id) } iconClass="fa fa-check"
-                permission={ true }/>
+          <div className="row">
+            <Icon type="submit" action={ this.handleUpdate.bind(this, this.state.request.id) } iconClass="fa fa-check" class="col-md-1 col-sm-1 col-xs-1" title="Save"
+                  permission={ true }/>
+            <Icon action={ this.cancelEdit } iconClass="fa fa-times" class="col-md-1 col-sm-1 col-xs-1" title="Cancel"
+                  permission={ true }/>
+          </div>
         </div>
       </div>
     )
