@@ -31,7 +31,8 @@ var NewRequest = React.createClass({
       success: (response) => {
         this.props.saveHandler(response.request);
         this.setState({ request: this.defaultRequest() });
-        console.log(response.msg)
+        let flash = JST['templates/alert_success']({msg: request.msg, styles: 'width: inherit;'});
+        displayFlash(flash);
       },
       error: (response) => {
         this.setState({ errors: response.responseJSON.errors });

@@ -12,7 +12,8 @@ var Proposal = React.createClass({
       method: 'DELETE',
       success: (request) => {
         this.props.updateCollection(id);
-        console.log(request.msg)
+        let flash = JST['templates/alert_success']({msg: request.msg, styles: 'width: inherit;'});
+        displayFlash(flash);
       },
       error: this.handleErrors
     });
@@ -24,7 +25,8 @@ var Proposal = React.createClass({
       method: 'GET',
       success: (request) => {
         this.props.updateCollection(id);
-        console.log(request.msg)
+        let flash = JST['templates/alert_success']({msg: request.msg, styles: 'width: inherit;'});
+        displayFlash(flash);
       },
       error: this.handleErrors
     });
@@ -32,9 +34,15 @@ var Proposal = React.createClass({
 
   handleErrors: function(response) {
     if (response.status == 403){ // user has no permission
-      console.log(response.responseJSON.unauthorized);
+      let flash = JST['templates/alert_error']({msg: response.responseJSON.unauthorized, styles: 'width: inherit;'});
+      displayFlash(flash);
     }
     else {
+      Object.keys(response.responseJSON.errors).map(function (key) {
+        err_msg = response.responseJSON.errors[key];
+        let flash = JST['templates/alert_error']({msg: err_msg, styles: 'width: inherit;'});
+        displayFlash(flash);
+      });
       this.setState({ errors: response.responseJSON.errors });
     }
   },

@@ -33,7 +33,8 @@ var Request = React.createClass({
             } },
       success: (request) => {
         this.setState({ is_edited: false });
-        console.log(request.msg)
+        let flash = JST['templates/alert_success']({msg: request.msg, styles: 'width: inherit;'});
+        displayFlash(flash);
       },
       error: this.handleErrors
     });
@@ -45,7 +46,8 @@ var Request = React.createClass({
       method: 'DELETE',
       success: (request) => {
         this.props.deleteHandler(id);
-        console.log(request.msg)
+        let flash = JST['templates/alert_success']({msg: request.msg, styles: 'width: inherit;'});
+        displayFlash(flash);
       },
       error: this.handleErrors
     });
@@ -57,7 +59,8 @@ var Request = React.createClass({
       method: 'POST',
       data: { proposal: { request_id: id} },
       success: (request) => {
-        console.log(request.msg)
+        let flash = JST['templates/alert_success']({msg: request.msg, styles: 'width: inherit;'});
+        displayFlash(flash);
       },
       error: this.handleErrors
     });
@@ -65,11 +68,17 @@ var Request = React.createClass({
 
   handleErrors: function(response) {
     if (response.status == 403){ // user has no permission
-      console.log(response.responseJSON.unauthorized);
+      let flash = JST['templates/alert_error']({msg: response.responseJSON.unauthorized, styles: 'width: inherit;'});
+      displayFlash(flash);
       if(response.responseJSON.request)
         this.setState({ is_edited: false, request: response.responseJSON.request })
     }
     else {
+      Object.keys(response.responseJSON.errors).map(function (key) {
+        err_msg = response.responseJSON.errors[key];
+        let flash = JST['templates/alert_error']({msg: err_msg, styles: 'width: inherit;'});
+        displayFlash(flash);
+      });
       this.setState({ errors: response.responseJSON.errors });
     }
   },
