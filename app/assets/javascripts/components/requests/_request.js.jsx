@@ -145,7 +145,8 @@ var Request = React.createClass({
         </InputWithErrors>
         <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"/>
         <div className="col-lg-1 col-md-2 col-sm-1 col-xs-1 text-left">
-          <Icon type="submit" action={ this.handleUpdate.bind(this, this.state.request.id) } iconClass="fa fa-check"/>
+          <Icon type="submit" action={ this.handleUpdate.bind(this, this.state.request.id) } iconClass="fa fa-check"
+                permission={ true }/>
         </div>
       </div>
     )

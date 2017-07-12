@@ -18,7 +18,7 @@ var Icon = React.createClass({
   },
 
   isDisabled: function() {
-    if (this.props.permission)
+    if (!this.props.permission)
       return 'disabled';
   },
 
