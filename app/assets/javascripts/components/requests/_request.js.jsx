@@ -6,6 +6,16 @@ var Request = React.createClass({
 
   getInitialState() { return { is_edited: false, request: this.props.request, errors: {} } },
 
+  componentDidMount() {
+    $.ajax({
+      url: `/api/requests/${this.state.request.id}/permissions`,
+      method: 'GET',
+      success: (response) => {
+        this.setState({ can_edit: response.permissions.edit, can_destroy: response.permissions.destroy, can_create_proposal: response.permissions.create_proposal })
+      },
+    });
+  },
+
 //  ### Actions ###
   handleInputChange: function(event) {
     const prop = event.target.name;
@@ -94,9 +104,12 @@ var Request = React.createClass({
         <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"> { this.state.request.user.name } </div>
         <div className="col-lg-1 col-md-2 col-sm-1 col-xs-1 text-left">
           <div className="row">
-            <Icon action={ this.handleEdit } iconClass="fa fa-edit" class="col-md-1 col-sm-1 col-xs-1" title="Edit"/>
-            <Icon action={ this.handleDelete.bind(this, this.state.request.id) } iconClass="fa fa-trash" class="col-md-1 col-sm-1 col-xs-1" title="Delete"/>
-            <Icon action={ this.handleCreateProposal.bind(this, this.state.request.id) } iconClass="fa fa-cutlery" class="col-md-1 col-sm-1 col-xs-1" title="Create proposal"/>
+            <Icon action={ this.handleEdit } iconClass="fa fa-edit" class="col-md-1 col-sm-1 col-xs-1" title="Edit"
+                  permission={ this.state.can_edit }/>
+            <Icon action={ this.handleDelete.bind(this, this.state.request.id) } iconClass="fa fa-trash" class="col-md-1 col-sm-1 col-xs-1" title="Delete"
+                  permission={ this.state.can_destroy }/>
+            <Icon action={ this.handleCreateProposal.bind(this, this.state.request.id) } iconClass="fa fa-cutlery" class="col-md-1 col-sm-1 col-xs-1" title="Create proposal"
+                  permission={ this.state.can_create_proposal }/>
           </div>
         </div>
       </div>

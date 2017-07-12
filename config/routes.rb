@@ -10,9 +10,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :users, only: [:index, :show]
-    resources :requests, except: [:edit, :new, :show]
+    resources :requests, except: [:edit, :new, :show] do
+      get :permissions, on: :member
+    end
     resources :proposals, only: [:index, :create, :destroy] do
       get :accept, on: :member
+      get :permissions, on: :member
     end
     resources :meal_dates
     resources :restaurants, only: [:index]

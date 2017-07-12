@@ -1,6 +1,6 @@
 class Api::RequestsController < ApplicationController
   before_action :get_request, except: [:index, :create, :new]
-  load_and_authorize_resource
+  load_and_authorize_resource except: :permissions
 
   # GET /api/requests
   def index
@@ -33,6 +33,13 @@ class Api::RequestsController < ApplicationController
   def destroy
     @request.destroy
     render json: { msg: 'Request was deleted.' }, status: 200
+  end
+
+  def permissions
+    can_edit = can? :edit, @request
+    can_delete = can? :destroy, @request
+    can_create_proposal = can? :create, Proposal.new(request: @request)
+    render json: { permissions: { edit: can_edit, destroy: can_delete, create_proposal: can_create_proposal } }, status: 200
   end
 
   def handle_unauthorized_access

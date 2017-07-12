@@ -1,6 +1,6 @@
 class Api::ProposalsController < ApplicationController
   before_action :get_proposal, except: [:index, :new, :create]
-  load_and_authorize_resource
+  load_and_authorize_resource except: :permissions
 
   # GET /api/proposals
   def index
@@ -37,6 +37,12 @@ class Api::ProposalsController < ApplicationController
     else
       render json: { msg: 'No restaurants found' }, status: 500
     end
+  end
+
+  def permissions
+    can_accept = can? :accept, @proposal
+    can_destroy = can? :destroy, @proposal
+    render json: { permissions: { accept: can_accept, destroy: can_destroy }}
   end
 
   def handle_unauthorized_access
