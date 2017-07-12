@@ -16,5 +16,6 @@ Rails.application.routes.draw do
     end
     resources :meal_dates
     resources :restaurants, only: [:index]
+    resources :meal_times, only: :index
   end
 end

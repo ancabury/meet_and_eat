@@ -3,7 +3,12 @@ var Requests = React.createClass({
     requests: React.PropTypes.array
   },
 
-  getInitialState() { return { requests: this.props.requests } },
+  getInitialState() { return { requests: this.props.requests, meal_time_options: [] } },
+
+  componentDidMount() {
+    $.getJSON('/api/meal_times',
+      (response) => { this.setState({ meal_time_options: response.options }) })
+  },
 
   handleSave: function(request) {
     var newRequests = this.state.requests;
@@ -19,7 +24,7 @@ var Requests = React.createClass({
   render: function() {
     var requests = this.state.requests.map((r) => {
       return (
-        <Request key={ r.id } request={ r } deleteHandler={ this.handleDelete }/>
+        <Request key={ r.id } request={ r } deleteHandler={ this.handleDelete } mealTimeOptions={ this.state.meal_time_options }/>
       )
     });
 
@@ -33,7 +38,7 @@ var Requests = React.createClass({
           <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"><strong>User</strong></div>
         </div>
         <div className="row">
-          <NewRequest saveHandler={ this.handleSave }/>
+          <NewRequest saveHandler={ this.handleSave } mealTimeOptions={ this.state.meal_time_options }/>
         </div>
         { requests }
       </div>
