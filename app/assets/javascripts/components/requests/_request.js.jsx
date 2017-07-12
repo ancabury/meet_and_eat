@@ -1,7 +1,8 @@
 var Request = React.createClass({
   propTypes: {
     request: React.PropTypes.object,
-    deleteHandler: React.PropTypes.func
+    deleteHandler: React.PropTypes.func,
+    mealTimeOptions: React.PropTypes.array
   },
 
   getInitialState() { return { is_edited: false, request: this.props.request, errors: {} } },
@@ -116,6 +117,19 @@ var Request = React.createClass({
       )
     },
 
+  mealTimeSelect: function() {
+    return(
+      <select value={ this.state.request.meal_time } className="form-control" name="meal_time" onChange={ this.handleInputChange }>
+        <option value="" disabled/>
+        {
+          this.props.mealTimeOptions.map(function(opt) {
+            return <option key={ opt } value={ opt }>{ opt }</option>
+          })
+        }
+      </select>
+    )
+  },
+
   editInputs: function() {
     return(
       <div className="row">
@@ -127,7 +141,7 @@ var Request = React.createClass({
           <input className="form-control" value={ this.state.request.meal_type } name="meal_type" onChange={ this.handleInputChange }/>
         </InputWithErrors>
         <InputWithErrors attrName="meal_time" errors={ this.state.errors } className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-          <input className="form-control" value={ this.state.request.meal_time } name="meal_time" onChange={ this.handleInputChange }/>
+          { this.mealTimeSelect() }
         </InputWithErrors>
         <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"/>
         <div className="col-lg-1 col-md-2 col-sm-1 col-xs-1 text-left">
