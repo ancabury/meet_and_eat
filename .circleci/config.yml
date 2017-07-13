@@ -33,3 +33,9 @@ jobs:
 
       - type: shell
         command: bundle exec rspec
+
+  deployment:
+    production:
+      branch: master
+      heroku:
+        appname: meet-eat-prod
