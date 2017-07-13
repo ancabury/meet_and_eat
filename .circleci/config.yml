@@ -19,6 +19,8 @@ jobs:
           - .bundle
 
       # Database setup
+      - type: shell
+        command: cp config/database.yml.example config/database.yml
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
