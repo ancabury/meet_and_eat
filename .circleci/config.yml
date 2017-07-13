@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.4.1-node
+        environment:
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
+          RAILS_ENV: test
+      - image: circleci/postgres:9.4.12-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+
+    steps:
+      - checkout
+
+      # Restore bundle cache, install new gems and store bundle cache
+      - type: cache-restore
+        key: app-{{ checksum "Gemfile.lock" }}
+
+      - run: bundle install --path .bundle
+      - type: cache-save
+        key: app-{{ checksum "Gemfile.lock" }}
+        paths:
+          - .bundle
+
+      # Database setup
+      - type: shell
+        command: cp config/database.yml.example config/database.yml
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      - type: shell
+        command: bundle exec rspec
