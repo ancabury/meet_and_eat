@@ -70,9 +70,9 @@ var Proposal = React.createClass({
           <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2"> { this.state.proposal.request.meal_time } </div>
           <div className="col-lg-1 col-md-2 col-sm-2 col-xs-2">
             <Icon action={ this.handleDelete.bind(this, this.state.proposal.id) } iconClass="fa fa-trash" class="col-md-1 col-sm-1 col-xs-1" title="Delete"
-                  permission={ this.state.can_accept }/>
-            <Icon action={ this.handleAccept.bind(this, this.state.proposal.id) } iconClass="fa fa-check-square-o" class="col-md-1 col-sm-1 col-xs-1" title="Accept"
                   permission={ this.state.can_destroy }/>
+            <Icon action={ this.handleAccept.bind(this, this.state.proposal.id) } iconClass="fa fa-check-square-o" class="col-md-1 col-sm-1 col-xs-1" title="Accept"
+                  permission={ this.state.can_accept }/>
           </div>
         </div>
       </div>

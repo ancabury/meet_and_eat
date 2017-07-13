@@ -44,8 +44,7 @@ class Api::RequestsController < ApplicationController
 
   def handle_unauthorized_access
     render json: {
-      unauthorized: I18n.t('flash.messages.unauthorized'),
-      request: @request.as_json(include: [ user: { only: [:name] }])
+      unauthorized: I18n.t('flash.messages.unauthorized')
     }, status: 403
   end
 
