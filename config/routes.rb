@@ -20,5 +20,8 @@ Rails.application.routes.draw do
     resources :meal_dates
     resources :restaurants, only: [:index]
     resources :meal_times, only: :index
+    resources :locations, only: [] do
+      get :city, on: :collection
+    end
   end
 end

@@ -19,4 +19,5 @@
 //= require react_ujs
 //= require utils
 //= require components
+//= require_tree ./gmaps
 //= require_tree .
