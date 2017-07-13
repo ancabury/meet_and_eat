@@ -29,9 +29,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails', '>= 1.4', require: false
   gem 'database_cleaner', '>= 1.5'
-  gem 'poltergeist', '~> 1.8'
   gem 'rspec-activemodel-mocks'
 end
 
