@@ -3,3 +3,6 @@
 
 ## Rails version
 - 5.1.2
+
+## Circle CI
+- version 2
