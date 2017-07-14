@@ -1,3 +1,4 @@
+require 'spec_helper'
 describe Restaurants::RandomSelection do
   describe '#perform' do
     subject { Restaurants::RandomSelection.new(request) }

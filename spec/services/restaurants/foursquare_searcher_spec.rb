@@ -1,3 +1,4 @@
+require 'spec_helper'
 describe Restaurants::FoursquareSearcher do
   describe '#search' do
     subject { Restaurants::FoursquareSearcher.new(query, location, 50) }
