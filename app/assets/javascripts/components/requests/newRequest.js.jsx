@@ -8,7 +8,7 @@ var NewRequest = React.createClass({
     saveHandler: React.PropTypes.func
   },
 
-  getInitialState() { return { request: this.defaultRequest(), errors: {} } },
+  getInitialState() { return { request: this.defaultRequest(), errors: {}, user_location: '' } },
 
 //  ### HTML ###
   mealTimeSelect: function() {
@@ -55,12 +55,35 @@ var NewRequest = React.createClass({
     });
   },
 
+  userLocation: function() {
+    var that = this;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      that.setState({ position: { lat: position.coords.latitude, long: position.coords.longitude } });
+      $.ajax({
+        url: '/api/locations/city',
+        method: 'GET',
+        data: { lat: position.coords.latitude, long: position.coords.longitude },
+        success: function(response) {
+//            var input = $('.newRequestForm input[name=location]');
+//            input.val(response.city);
+          that.setState({ user_location: response.city });
+        },
+        error: function(response) {
+          console.log(response)
+        }
+      });
+    });
+  },
+
   render: function() {
     return (
       <form className="newRequestForm" onSubmit={ this.saveRequest }>
         <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 hidden-xs hidden-sm text-right"/>
         <InputWithErrors attrName="location" errors={ this.state.errors } className="col-lg-3 col-md-2 col-sm-2 col-xs-2 text-center">
-          <input type="text" className="form-control" value={ this.state.request.location } name="location" onChange={ this.handleInputChange } aria-describedby="geoLocation"/>
+          <input type="text" className="form-control" value={ this.state.request.location } name="location" onChange={ this.handleInputChange }
+                 onClick={ this.userLocation }
+                 data-toggle="modal" data-target="#gmapModal"
+                 aria-describedby="geoLocation"/>
           <span className="form-control-feedback" aria-hidden="true">
             <i className="fa fa-map-marker" aria-hidden="true"/>
           </span>
@@ -75,6 +98,8 @@ var NewRequest = React.createClass({
         <div className="col-lg-1 col-md-2 col-sm-2 col-xs-1 text-left">
           <button type="submit" className="btn btn-primary">Save</button>
         </div>
+
+        <GmapModal currentLocation={ this.state.user_location } position={ this.state.position } updateMap={ this.mapHandler }/>
       </form>
     )
   }

@@ -108,3 +108,9 @@ a.disabled {
 .form-control-feedback {
   right: 10px;
 }
+
+/*### Gmap style ### */
+#gmap {
+  width: 400px;
+  height: 400px;
+}
