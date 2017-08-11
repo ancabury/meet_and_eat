@@ -15,7 +15,6 @@
 //= require jquery3
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require vendor
 //= require react
 //= require react_ujs
 //= require utils
