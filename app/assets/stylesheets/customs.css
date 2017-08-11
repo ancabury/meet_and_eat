@@ -104,3 +104,7 @@ a.disabled {
   height: 48px;
   border-radius: 50%;
 }
+
+.form-control-feedback {
+  right: 10px;
+}

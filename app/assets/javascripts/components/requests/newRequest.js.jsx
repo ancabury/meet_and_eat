@@ -60,7 +60,10 @@ var NewRequest = React.createClass({
       <form className="newRequestForm" onSubmit={ this.saveRequest }>
         <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 hidden-xs hidden-sm text-right"/>
         <InputWithErrors attrName="location" errors={ this.state.errors } className="col-lg-3 col-md-2 col-sm-2 col-xs-2 text-center">
-          <input className="form-control" value={ this.state.request.location } name="location" onChange={ this.handleInputChange }/>
+          <input type="text" className="form-control" value={ this.state.request.location } name="location" onChange={ this.handleInputChange } aria-describedby="geoLocation"/>
+          <span className="form-control-feedback" aria-hidden="true">
+            <i className="fa fa-map-marker" aria-hidden="true"/>
+          </span>
         </InputWithErrors>
         <InputWithErrors attrName="meal_type" errors={ this.state.errors } className="col-lg-3 col-md-2 col-sm-2 col-xs-2 text-center">
           <input className="form-control" value={ this.state.request.meal_type } name="meal_type" onChange={ this.handleInputChange }/>

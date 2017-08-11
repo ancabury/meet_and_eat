@@ -45,5 +45,6 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
 gem 'react-rails', '~> 2.2', '>= 2.2.1'
 
 gem 'cancancan', '~> 2.0'
+gem 'geocoder', '~> 1.4', '>= 1.4.4'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
