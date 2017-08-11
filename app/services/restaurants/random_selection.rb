@@ -4,6 +4,9 @@ class Restaurants::RandomSelection
   end
 
   def perform
+    return false if @request.nil?
+    return false if @request.meal_type.blank? || @request.location.blank?
+
     searcher = Restaurants::FoursquareSearcher.new(@request.meal_type, @request.location)
     restaurants = searcher.formatted_result([:name, :location])
     restaurants.sample

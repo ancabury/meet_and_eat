@@ -21,9 +21,14 @@ gem 'ejs', '~> 1.1', '>= 1.1.1'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry', '~> 0.10.4'
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+  gem 'pry-byebug', '>= 3.3'
   gem 'rspec-rails', '~> 3.4'
+  gem 'factory_girl_rails', '~> 4.0'
+end
+
+group :test do
+  gem 'database_cleaner', '>= 1.5'
+  gem 'rspec-activemodel-mocks'
 end
 
 group :development do

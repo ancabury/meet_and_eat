@@ -19,7 +19,7 @@ jobs:
       - type: cache-restore
         key: app-{{ checksum "Gemfile.lock" }}
 
-      - run: bundle install --path .bundle
+      - run: bundle install --path .bundle --jobs=7
       - type: cache-save
         key: app-{{ checksum "Gemfile.lock" }}
         paths:
